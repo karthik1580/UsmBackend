@@ -1,12 +1,10 @@
-require('./config/config');
 require('./dbConfig/db');
 
-//const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routeIndex = require('./routes/index.router');
-
+const config = require('./config/config');
 let app = express();
 
 // Bodyparser middlewhere
@@ -17,9 +15,10 @@ app.use(cors());
 app.use('/api', routeIndex);
 
 app.use((err, req, res, next) => {
-  //if(err)
-  console.log('err, req, res, next', err, req, res, next)
-  console.log('------------err------------', err);
+  if (err) {
+    console.log('Middlewhere error', err);
+  }
+  next();
 });
 
 // const server = http.createServer();
@@ -27,8 +26,8 @@ app.use((err, req, res, next) => {
 //   console.log(`Server started at port ==> ${ process.env.PORT }`);
 // })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server started at port ${ process.env.PORT }`);
+app.listen(config.PORT, () => {
+  console.log(`Server started at port ${config.PORT}`);
 })
 
 

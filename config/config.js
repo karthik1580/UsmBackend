@@ -1,4 +1,5 @@
-let env = process.env.NODE_ENN || 'development';
+let env = 'development'; // 3000
 let config = require('./config.json');
 let envConfig = config[env];
-Object.keys(envConfig).forEach(key => process.env[key] = envConfig[key]);
+
+module.exports = envConfig
