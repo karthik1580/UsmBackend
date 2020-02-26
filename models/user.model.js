@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 
 let userSchema = new mongoose.Schema({
   enterpriseId: {
@@ -31,9 +31,13 @@ let userSchema = new mongoose.Schema({
     required: 'Password should not empty', 
     trim: true, 
     minlength: [4, 'Password should not lessthen 4 char']
-  },
-  saltSecret: {type: String}
+  }
 });
+// Reference for salt secret
+// let userSchema = new mongoose.Schema({
+//   password: {}
+//   saltSecret: {type: String}
+// });
 
 userSchema.plugin(uniqueValidator);
 
@@ -46,14 +50,14 @@ userSchema.path('email').validate((val) => {
   return emailRegx.test(val);
 }, 'Invalid e-mail');
 
-userSchema.pre('save', function(next) { 
-  bcrypt.genSalt(10, (err, salt) => {   
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      this.password = hash;
-      this.saltSecret = salt;
-      next();
-    });    
-  });
-});
+// userSchema.pre('save', function(next) { 
+//   bcrypt.genSalt(10, (err, salt) => {   
+//     bcrypt.hash(this.password, salt, (err, hash) => {
+//       this.password = hash;
+//       this.saltSecret = salt;
+//       next();
+//     });    
+//   });
+// });
 
 mongoose.model('User', userSchema);

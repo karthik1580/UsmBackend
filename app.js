@@ -17,6 +17,7 @@ app.use('/api', routeIndex);
 app.use((err, req, res, next) => {
   if (err) {
     console.log('Middlewhere error', err);
+    return err;
   }
   next();
 });
