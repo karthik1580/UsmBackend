@@ -7,6 +7,8 @@ const routeIndex = require('./routes/index.router');
 const config = require('./config/config');
 let app = express();
 
+//const jwt = require('jsonwebtoken');
+
 // Bodyparser middlewhere
 app.use(bodyParser.json());
 // cors resolve

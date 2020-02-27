@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const jwt = require('jsonwebtoken');
 
 module.exports.register = (req, res) => {
 
@@ -13,9 +14,12 @@ module.exports.register = (req, res) => {
       
   });
   
-  user.save((err, doc) => {
+  user.save((err, regUser) => {
       if(!err){
-        res.status(200).send(doc);
+        let payload = { subject: regUser._id};
+        //key should be any
+        let token = jwt.sign(payload, 'JWT_SecurityKey');
+        res.status(200).send({token});
       }
       else{ 
           let errorEmail = err.errors.email;
@@ -49,7 +53,7 @@ module.exports.register = (req, res) => {
               res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
           } 
 
-          // if(errorVaidUser && errorVaidUser.path === 'password'){
+        // if(errorVaidUser && errorVaidUser.path === 'password'){
         //     let passLength = errorPassword.properties.value;
         //     res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
         // }
@@ -73,7 +77,10 @@ module.exports.login = (req, res) => {
           if(user.password !== userdata.password){
             res.status(401).send('Invalid Password');
           }else{
-            res.status(200).send(user)
+            console.log('user------', user);
+            let payload = { subject: user._id };
+            let token = jwt.sign(payload, 'Jwt_SecretKey');
+            res.status(200).send({ token });
           }
   })
   
