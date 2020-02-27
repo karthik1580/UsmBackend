@@ -1,5 +1,5 @@
-let env = 'development'; // 3000
 let config = require('./config.json');
+let env = 'development';
 let envConfig = config[env];
 
 module.exports = envConfig

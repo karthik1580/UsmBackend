@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-module.exports.register = (req, res, next) => {
+module.exports.register = (req, res) => {
 
   let user = new User({
       enterpriseId: req.body.enterpriseId,
@@ -10,11 +10,12 @@ module.exports.register = (req, res, next) => {
       role: req.body.role,
       email: req.body.email,
       password: req.body.password
+      
   });
   
   user.save((err, doc) => {
       if(!err){
-        res.send(doc);
+        res.status(200).send(doc);
       }
       else{ 
           let errorEmail = err.errors.email;
@@ -22,6 +23,7 @@ module.exports.register = (req, res, next) => {
           let errorEnterpriseId = err.errors.enterpriseId;
           let errorFirstName = err.errors.firstName;
           let errorLastName = err.errors.lastName;
+          //let errorVaidUser = err.errors.vaidUser;
 
           if(errorEmail && (errorEmail.path === 'email')){
             res.send(errorEmail.properties.type === 'unique' ? 'Duplicate email id' : 'Invalid email');
@@ -46,8 +48,33 @@ module.exports.register = (req, res, next) => {
               let passLength = errorPassword.properties.value;
               res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
           } 
+
+          // if(errorVaidUser && errorVaidUser.path === 'password'){
+        //     let passLength = errorPassword.properties.value;
+        //     res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
+        // }
       }
   });
 }
 
-//module.exports = register;
+module.exports.login = (req, res) => {
+  let userdata = {
+    email: req.body.email,
+    password: req.body.password
+  }
+
+  User.findOne({email: userdata.email}, (err, user) => {
+    if(err){
+      console.log('err', err);
+    } else
+        if(!user){
+            res.status(401).send('Invalid email');
+        }else
+          if(user.password !== userdata.password){
+            res.status(401).send('Invalid Password');
+          }else{
+            res.status(200).send(user)
+          }
+  })
+  
+}
