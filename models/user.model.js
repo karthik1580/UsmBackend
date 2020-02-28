@@ -32,7 +32,11 @@ let userSchema = new mongoose.Schema({
     trim: true, 
     minlength: [4, 'Password should not lessthen 4 char']
   },
-  vaidUser: {
+  created_on: {
+    type: Date,
+    default: Date.now
+  },
+  isVaidUser: {
     type: Boolean
   }
 });

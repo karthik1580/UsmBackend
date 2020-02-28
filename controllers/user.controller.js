@@ -10,16 +10,18 @@ module.exports.register = (req, res) => {
       lastName: req.body.lastName,
       role: req.body.role,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      isVaidUser: false,
+      created_on: new Date()
       
   });
   
   user.save((err, regUser) => {
       if(!err){
-        let payload = { subject: regUser._id};
-        //key should be any
-        let token = jwt.sign(payload, 'JWT_SecurityKey');
-        res.status(200).send({token});
+          //let payload = { subject: regUser._id };
+          //let token = jwt.sign(payload, 'secretKey');
+          //res.status(200).send({token});
+          res.status(200).send(user);
       }
       else{ 
           let errorEmail = err.errors.email;
@@ -68,20 +70,64 @@ module.exports.login = (req, res) => {
   }
 
   User.findOne({email: userdata.email}, (err, user) => {
+    console.log('-------------', user);
     if(err){
-      console.log('err', err);
-    } else
-        if(!user){
-            res.status(401).send('Invalid email');
-        }else
-          if(user.password !== userdata.password){
-            res.status(401).send('Invalid Password');
-          }else{
-            console.log('user------', user);
+      res.status(401).send(err);
+    } else if(!user) {
+      res.status(401).send('Unauthorized user please contact administrator ');
+    } else {
+      if(user.password !== userdata.password){
+        res.status(401).send('Invalid Password');
+      } else {
+          if(user.isVaidUser){
             let payload = { subject: user._id };
             let token = jwt.sign(payload, 'Jwt_SecretKey');
-            res.status(200).send({ token });
+            res.status(200).send({token});
+          }else{
+            res.status(401).send('Administrator is not yet approve your request');
           }
-  })
-  
+      }
+    }
+  }) 
+}
+
+module.exports.userslist = (req,res) => {
+
+  User.find({}, (err, userList) => {
+      res.status(200).send(userList);
+      console.log('token',  token);
+    });
+}
+
+module.exports.incidentlist = (req,res) => {
+
+  let incidentslist = [
+    {
+      "_id": '1111',
+      "name": 'karthik',
+      "descriptions": "jsakjsad"
+    },
+    {
+      "_id": '1111',
+      "name": 'karthik',
+      "descriptions": "jsakjsad"
+    },
+    {
+      "_id": '1111',
+      "name": 'karthik',
+      "descriptions": "jsakjsad"
+    },
+    {
+      "_id": '1111',
+      "name": 'karthik',
+      "descriptions": "jsakjsad"
+    },
+    {
+      "_id": '1111',
+      "name": 'karthik',
+      "descriptions": "jsakjsad"
+    }
+  ];
+
+  res.json(incidentslist);
 }
