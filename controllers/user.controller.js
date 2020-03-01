@@ -11,7 +11,7 @@ module.exports.register = (req, res) => {
       role: req.body.role,
       email: req.body.email,
       password: req.body.password,
-      isVaidUser: false,
+      isVaidUser: req.body.isVaidUser,
       created_on: new Date()
       
   });
@@ -21,7 +21,8 @@ module.exports.register = (req, res) => {
           //let payload = { subject: regUser._id };
           //let token = jwt.sign(payload, 'secretKey');
           //res.status(200).send({token});
-          res.status(200).send(user);
+           console.log('regUser', regUser);
+          res.status(200).send(regUser);
       }
       else{ 
           let errorEmail = err.errors.email;
@@ -29,7 +30,6 @@ module.exports.register = (req, res) => {
           let errorEnterpriseId = err.errors.enterpriseId;
           let errorFirstName = err.errors.firstName;
           let errorLastName = err.errors.lastName;
-          //let errorVaidUser = err.errors.vaidUser;
 
           if(errorEmail && (errorEmail.path === 'email')){
             res.send(errorEmail.properties.type === 'unique' ? 'Duplicate email id' : 'Invalid email');
@@ -53,12 +53,7 @@ module.exports.register = (req, res) => {
           if(errorPassword && errorPassword.path === 'password'){
               let passLength = errorPassword.properties.value;
               res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
-          } 
-
-        // if(errorVaidUser && errorVaidUser.path === 'password'){
-        //     let passLength = errorPassword.properties.value;
-        //     res.send( passLength.length < 4 ? 'Password should be more then 4 charactor' : '');
-        // }
+          }
       }
   });
 }
@@ -70,7 +65,6 @@ module.exports.login = (req, res) => {
   }
 
   User.findOne({email: userdata.email}, (err, user) => {
-    console.log('-------------', user);
     if(err){
       res.status(401).send(err);
     } else if(!user) {
@@ -92,10 +86,12 @@ module.exports.login = (req, res) => {
 }
 
 module.exports.userslist = (req,res) => {
-
   User.find({}, (err, userList) => {
-      res.status(200).send(userList);
-      console.log('token',  token);
+      if(!err)
+        res.status(200).send(userList)
+      else
+        console.log("Data fetching error");
+      
     });
 }
 
