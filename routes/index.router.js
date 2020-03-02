@@ -13,11 +13,11 @@ router.post('/login', userCtrl.login);
 
 router.get('/user', userCtrl.userslist);
 router.get('/user/:id', userCtrl.userslist);
+router.put('/user/:id', adminCtrl.updateUserResetPwd);
 
 router.get('/admin', adminCtrl.users);
 //router.get('/admin/:id', adminCtrl.userById);
 router.put('/admin/:id', adminCtrl.updateUserById);
-router.put('/admin/:id', adminCtrl.updateUserResetPwd);
 router.delete('/admin/:id', adminCtrl.userDeleteById);
 
 router.get('/pmo', pmoCtrl.pmo);
