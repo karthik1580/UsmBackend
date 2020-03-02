@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
+const User = mongoose.model('User');
 
 module.exports.register = (req, res) => {
 
@@ -94,6 +94,8 @@ module.exports.userslist = (req,res) => {
       
     });
 }
+
+
 
 module.exports.incidentlist = (req,res) => {
 

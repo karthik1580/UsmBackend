@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/config');
 
-mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, (err) => {
   if (!err) {
     console.log('Mongodb connected successfully');
   } else {

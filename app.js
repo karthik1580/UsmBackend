@@ -6,6 +6,7 @@ const cors = require('cors');
 const routeIndex = require('./routes/index.router');
 const config = require('./config/config');
 let app = express();
+const jwt = require('jsonwebtoken');
 
 //const jwt = require('jsonwebtoken');
 
@@ -23,6 +24,7 @@ app.use((err, req, res, next) => {
   }
   next();
 });
+
 
 // const server = http.createServer();
 // server.listen(process.env.PORT, () => {
