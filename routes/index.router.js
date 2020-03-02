@@ -17,6 +17,7 @@ router.get('/user/:id', userCtrl.userslist);
 router.get('/admin', adminCtrl.users);
 //router.get('/admin/:id', adminCtrl.userById);
 router.put('/admin/:id', adminCtrl.updateUserById);
+router.put('/admin/:id', adminCtrl.updateUserResetPwd);
 router.delete('/admin/:id', adminCtrl.userDeleteById);
 
 router.get('/pmo', pmoCtrl.pmo);
@@ -38,38 +39,5 @@ function verifyToken(req, res, next){
     req.userId = payload.subject;
     next();
   }
-
-
-// router.get('/incidentlist1', (req,res) => {
-//     let userslist = [
-//       {
-//         "_id": '1111',
-//         "name": 'karthik',
-//         "descriptions": "jsakjsad"
-//       },
-//       {
-//         "_id": '1111',
-//         "name": 'karthik',
-//         "descriptions": "jsakjsad"
-//       },
-//       {
-//         "_id": '1111',
-//         "name": 'karthik',
-//         "descriptions": "jsakjsad"
-//       },
-//       {
-//         "_id": '1111',
-//         "name": 'karthik',
-//         "descriptions": "jsakjsad"
-//       },
-//       {
-//         "_id": '1111',
-//         "name": 'karthik',
-//         "descriptions": "jsakjsad"
-//       }
-//     ];
-  
-//     res.json(userslist);
-//   });
 
 module.exports = router;

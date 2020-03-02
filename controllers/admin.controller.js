@@ -21,20 +21,36 @@ module.exports.userById = (req, res) => {
 }
 
  module.exports.updateUserById = (req, res) => {
-
   let updateUserObj = {
-      isVaidUser: true,
+      isVaidUser: req.body.isValid,
       created_on: new Date()
   }
-
   User.findByIdAndUpdate( req.params.id, 
         { $set: updateUserObj },
         { new: true }, 
         function(err, updateUser) {          
-          console.log("inside data updating");
           if(!err){
             res.status(200).send(updateUser);
             console.log("Data updating successfully");
+          }else{
+            console.log("Data updating error");
+          }
+        }
+    )
+}
+
+ module.exports.updateUserResetPwd = (req, res) => {
+  let updateUserObj = {
+      password: 'support',
+      created_on: new Date()
+  }
+  User.findByIdAndUpdate( req.params.id, 
+        { $set: updateUserObj },
+        { new: true }, 
+        function(err, updateUser) {          
+          if(!err){
+            res.status(200).send(updateUser);
+            console.log("password updating successfully");
           }else{
             console.log("Data updating error");
           }
@@ -51,6 +67,7 @@ module.exports.userDeleteById = (req, res) => {
     }
   })
 }
+
 
 module.exports.userById = (req, res) => {
   console.log('res', res);
