@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+console.log('I am user model');
 //const bcrypt = require('bcryptjs');
 
 let userSchema = new mongoose.Schema({

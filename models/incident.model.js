@@ -4,6 +4,18 @@ let IncidentSchema = new mongoose.Schema({
   userMapId: {
     type: String
   },
+  title: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  issueType: {
+    type: String
+  },
+  description: {
+    type: String
+  },
   enterpriseId: {
     type: String
   },
@@ -13,16 +25,22 @@ let IncidentSchema = new mongoose.Schema({
   lastName: {
     type: String
   },
-  role: {
-    type: String
+  isVaidUser: {
+    type: Boolean
   },
-  email: {
-    type: String
+  isOpen: {
+    type: Boolean
   },
-  description: {
-    type: String
+  isResolved: {
+    type: Boolean
   },
-  createdDate: {
-    type: Date
+  isClarification: {
+    type: Boolean
+  },
+  created_on: {
+    type: Date,
+    default: Date.now
   }
 });
+
+mongoose.model('incident', IncidentSchema);

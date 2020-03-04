@@ -8,6 +8,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
     console.log('Error in Mongodb Connection');
   }
 });
+require('../models/incident.model');
 require('../models/user.model');
 
 

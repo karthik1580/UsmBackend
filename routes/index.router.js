@@ -4,6 +4,7 @@ const router = express.Router();
 const userCtrl = require('../controllers/user.controller');
 const adminCtrl = require('../controllers/admin.controller');
 const pmoCtrl = require('../controllers/pmo.controller');
+const incidentCtrl = require('../controllers/incident.controller');
 const jwt = require('jsonwebtoken');
 //const User = mongoose.model('User');
 
@@ -21,6 +22,11 @@ router.put('/admin/:id', adminCtrl.updateUserById);
 router.delete('/admin/:id', adminCtrl.userDeleteById);
 
 router.get('/pmo', pmoCtrl.pmo);
+
+router.post('/incident', incidentCtrl.createIncident);
+router.get('/incident', incidentCtrl.getAllIncident);
+//router.get('/incident:id', incidentCtrl.getIncidentById);
+//router.put('/incident:id', incidentCtrl.updateIncidentById);
 
 
 function verifyToken(req, res, next){
