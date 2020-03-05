@@ -95,37 +95,14 @@ module.exports.userslist = (req,res) => {
     });
 }
 
-
-
-module.exports.incidentlist = (req,res) => {
-
-  let incidentslist = [
-    {
-      "_id": '1111',
-      "name": 'karthik',
-      "descriptions": "jsakjsad"
-    },
-    {
-      "_id": '1111',
-      "name": 'karthik',
-      "descriptions": "jsakjsad"
-    },
-    {
-      "_id": '1111',
-      "name": 'karthik',
-      "descriptions": "jsakjsad"
-    },
-    {
-      "_id": '1111',
-      "name": 'karthik',
-      "descriptions": "jsakjsad"
-    },
-    {
-      "_id": '1111',
-      "name": 'karthik',
-      "descriptions": "jsakjsad"
-    }
-  ];
-
-  res.json(incidentslist);
+module.exports.authenticate = (req, res, next) => {
+  password.authenticate('local', this.passConfig(err, user, info)(req, res));
 }
+
+function passConfig(err, user, info){
+  if(err) return res.status(400).send(err)
+  else 
+    if(user) return res.status(200).json({"token": user.generateJwt() });
+  else return res.status(400).send(info)
+}
+
