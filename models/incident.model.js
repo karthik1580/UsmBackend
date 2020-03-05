@@ -31,6 +31,9 @@ let IncidentSchema = new mongoose.Schema({
   isOpen: {
     type: Boolean
   },
+  isClosed: {
+    type: Boolean
+  },
   isResolved: {
     type: Boolean
   },

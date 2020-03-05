@@ -99,10 +99,10 @@ module.exports.authenticate = (req, res, next) => {
   password.authenticate('local', this.passConfig(err, user, info)(req, res));
 }
 
-function passConfig(err, user, info){
-  if(err) return res.status(400).send(err)
-  else 
-    if(user) return res.status(200).json({"token": user.generateJwt() });
-  else return res.status(400).send(info)
-}
+// function passConfig(err, user, info){
+//   if(err) return res.status(400).send(err)
+//   else 
+//     if(user) return res.status(200).json({"token": user.generateJwt() });
+//   else return res.status(400).send(info)
+// }
 

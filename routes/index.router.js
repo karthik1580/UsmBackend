@@ -25,7 +25,7 @@ router.get('/pmo', pmoCtrl.pmo);
 
 router.post('/incident', incidentCtrl.createIncident);
 router.get('/incident', incidentCtrl.getAllIncident);
-//router.get('/incident:id', incidentCtrl.getIncidentById);
+router.get('/incident/:id', incidentCtrl.getIncidentById);
 //router.put('/incident:id', incidentCtrl.updateIncidentById);
 
 

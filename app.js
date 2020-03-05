@@ -1,12 +1,12 @@
 require('./dbConfig/db');
-require('./config/passportConfig');
+//require('./config/passportConfig');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routeIndex = require('./routes/index.router');
 const config = require('./config/config');
-const passport = require('passport');
+//const passport = require('passport');
 
 let app = express();
 const jwt = require('jsonwebtoken');
@@ -17,7 +17,7 @@ const jwt = require('jsonwebtoken');
 app.use(bodyParser.json());
 // cors resolve
 app.use(cors());
-app.use(passport.initialize());
+//app.use(passport.initialize());
 //register route index
 app.use('/api', routeIndex);
 

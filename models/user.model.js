@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-console.log('I am user model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -76,9 +75,9 @@ userSchema.method.verifyPassword = function(pwd){
   return bcrypt.compareSync(pwd, this.password);
 }
 
-userSchema.method.generateJwt(() => {
-  return jwt.sign({ _id: this._id },
-  process.env.JWT_SECRET  
-  )
-});
+// userSchema.method.generateJwt(() => {
+//   return jwt.sign({ _id: this._id },
+//   process.env.JWT_SECRET  
+//   )
+// });
 mongoose.model('User', userSchema);
