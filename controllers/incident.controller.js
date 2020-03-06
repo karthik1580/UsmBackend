@@ -5,38 +5,6 @@ const User = mongoose.model('User');
 
 module.exports.createIncident = (req, res) => {
   this.findByEmailId(req, res);
-  // let incident = new Incident({
-  //     title: req.body.incidentTitle,
-  //     email: req.body.referenceEmail,
-  //     issueType: req.body.incidentType,
-  //     description: req.body.incidentDescription,
-  //     enterpriseId: req.body.enterpriseId,
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //     isVaidUser: true,
-  //     isOpen: true,
-  //     isResolved: false,
-  //     isClarification: false,
-  //     created_on: new Date()
-      
-  // });
-  
-  // incident.save((err, newIncidient) => {
-  //     if(!err){
-  //         res.status(200).send(newIncidient);
-  //     }else{ 
-  //         let errorTitle = err.errors.title;
-  //         let errorDescription = err.errors.description;
-
-  //         if(errorTitle && error.path === 'title'){
-  //           res.send("Title should not empty");
-  //         }
-
-  //         if(errorDescription && error.path === 'description'){
-  //           res.send("Description should not empty");
-  //         }
-  //     }
-  // });
 }
 
 module.exports.getAllIncident = (req, res) => {
@@ -104,3 +72,49 @@ module.exports.saveNewIncident = (filterObj, incidentData, res) => {
       }
   });
 }
+
+
+
+
+
+
+
+
+/*
+
+module.exports.createIncident = (req, res) => {
+  this.findByEmailId(req, res);
+  // let incident = new Incident({
+  //     title: req.body.incidentTitle,
+  //     email: req.body.referenceEmail,
+  //     issueType: req.body.incidentType,
+  //     description: req.body.incidentDescription,
+  //     enterpriseId: req.body.enterpriseId,
+  //     firstName: req.body.firstName,
+  //     lastName: req.body.lastName,
+  //     isVaidUser: true,
+  //     isOpen: true,
+  //     isResolved: false,
+  //     isClarification: false,
+  //     created_on: new Date()
+      
+  // });
+  
+  // incident.save((err, newIncidient) => {
+  //     if(!err){
+  //         res.status(200).send(newIncidient);
+  //     }else{ 
+  //         let errorTitle = err.errors.title;
+  //         let errorDescription = err.errors.description;
+
+  //         if(errorTitle && error.path === 'title'){
+  //           res.send("Title should not empty");
+  //         }
+
+  //         if(errorDescription && error.path === 'description'){
+  //           res.send("Description should not empty");
+  //         }
+  //     }
+  // });
+}
+*/

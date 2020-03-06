@@ -94,15 +94,57 @@ module.exports.userslist = (req,res) => {
       
     });
 }
+module.exports.usersUserById = (req,res) => {
+  id = "56e6dd2eb4494ed008d595bd";
+  User.findById({_id: id}, (err, userList) => {
+      if(!err)
+        res.status(200).send(userList)
+      else
+        console.log("Data fetching error");
+      
+    });
+}
 
 module.exports.authenticate = (req, res, next) => {
   password.authenticate('local', this.passConfig(err, user, info)(req, res));
 }
 
-// function passConfig(err, user, info){
-//   if(err) return res.status(400).send(err)
-//   else 
-//     if(user) return res.status(200).json({"token": user.generateJwt() });
-//   else return res.status(400).send(info)
-// }
+module.exports.findByUserEmailId = (req, res) => {
+  User.findOne({email: req.params.id}, (err, filterData) => {     
+    if(!err) {
+      res.status(200).send(filterData);
+    }else{
+      console.log("Data fetching error");
+    };    
+  });
+}
+
+module.exports.userPasswordUpdate = (filterData, res) => {
+  
+  let updateUserObj = {
+      "_id": filterData._id,
+      "enterpriseId": filterData.enterpriseId,
+      "firstName": filterData.firstName,
+      "lastName": filterData.lastName,
+      "role": filterData.role,
+      "email": filterData.email,
+      "password": filterData.password,
+      "isVaidUser": filterData.isVaidUser,
+      created_on: new Date()
+  }
+  User.findByIdAndUpdate( filterData._id, 
+        { $set: updateUserObj },
+        { new: true }, 
+        function(err, updateUser) {          
+          if(!err){
+            res.status(200).send(updateUser);
+            console.log("password updating successfully");
+          }else{
+            console.log("Data updating error");
+          }
+        }
+    )
+}
+
+
 

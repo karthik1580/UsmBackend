@@ -13,8 +13,11 @@ router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
 
 router.get('/user', userCtrl.userslist);
-router.get('/user/:id', userCtrl.userslist);
+router.get('/user/:id', userCtrl.usersUserById);
 router.put('/user/:id', adminCtrl.updateUserResetPwd);
+
+router.get('/resetPass/:id', userCtrl.findByUserEmailId);
+router.put('/resetPass/:id', userCtrl.userPasswordUpdate);
 
 router.get('/admin', adminCtrl.users);
 //router.get('/admin/:id', adminCtrl.userById);
@@ -27,6 +30,8 @@ router.post('/incident', incidentCtrl.createIncident);
 router.get('/incident', incidentCtrl.getAllIncident);
 router.get('/incident/:id', incidentCtrl.getIncidentById);
 //router.put('/incident:id', incidentCtrl.updateIncidentById);
+
+router.put('/resetPwd/:id', userCtrl.userPasswordUpdate);
 
 
 function verifyToken(req, res, next){

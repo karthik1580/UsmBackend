@@ -42,6 +42,9 @@ let userSchema = new mongoose.Schema({
   },
   isVaidUser: {
     type: Boolean
+  },
+  newPassword: {
+    type: String
   }
 });
 // Reference for salt secret
