@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 let userSchema = new mongoose.Schema({
@@ -33,9 +33,6 @@ let userSchema = new mongoose.Schema({
     trim: true, 
     minlength: [4, 'Password should not lessthen 4 char']
   },
-  saltSecret: {
-    type: String
-  },
   created_on: {
     type: Date,
     default: Date.now
@@ -64,19 +61,19 @@ userSchema.path('email').validate((val) => {
   return emailRegx.test(val);
 }, 'Invalid e-mail');
 
-userSchema.pre('save', function(next) { 
-  bcrypt.genSalt(10, (err, salt) => {   
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      this.password = hash;
-      this.saltSecret = salt;
-      next();
-    });    
-  });
-});
+// userSchema.pre('save', function(next) { 
+//   bcrypt.genSalt(10, (err, salt) => {   
+//     bcrypt.hash(this.password, salt, (err, hash) => {
+//       this.password = hash;
+//       this.saltSecret = salt;
+//       next();
+//     });    
+//   });
+// });
 
-userSchema.method.verifyPassword = function(pwd){
-  return bcrypt.compareSync(pwd, this.password);
-}
+// userSchema.method.verifyPassword = function(pwd){
+//   return bcrypt.compareSync(pwd, this.password);
+// }
 
 // userSchema.method.generateJwt(() => {
 //   return jwt.sign({ _id: this._id },

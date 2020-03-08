@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = mongoose.model('User');
 
 module.exports.register = (req, res) => {
-
   let user = new User({
       enterpriseId: req.body.enterpriseId,
       firstName: req.body.firstName,
@@ -12,16 +11,13 @@ module.exports.register = (req, res) => {
       email: req.body.email,
       password: req.body.password,
       isVaidUser: req.body.isVaidUser,
-      created_on: new Date()
-      
+      created_on: new Date()      
   });
-  
   user.save((err, regUser) => {
       if(!err){
           //let payload = { subject: regUser._id };
           //let token = jwt.sign(payload, 'secretKey');
-          //res.status(200).send({token});
-           console.log('regUser', regUser);
+          //res.status(200).send({token});           
           res.status(200).send(regUser);
       }
       else{ 
@@ -130,7 +126,7 @@ module.exports.userPasswordUpdate = (filterData, res) => {
       "email": filterData.email,
       "password": filterData.password,
       "isVaidUser": filterData.isVaidUser,
-      created_on: new Date()
+      "created_on": new Date()
   }
   User.findByIdAndUpdate( filterData._id, 
         { $set: updateUserObj },
