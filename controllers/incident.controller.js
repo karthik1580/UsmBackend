@@ -28,7 +28,7 @@ module.exports.getIncidentById = (req, res) => {
 module.exports.findByEmailId = (req, res) => {
   User.findOne({email: req.body.referenceEmail}, (err, filterData) => {     
     if(!err) {
-      consol.log('filterData', filterData);
+      //consol.log('filterData', filterData);
       this.saveNewIncident(filterData, req.body, res);
     }else{
       console.log("Data fetching error");
