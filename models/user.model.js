@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 let userSchema = new mongoose.Schema({
   enterpriseId: {
@@ -40,6 +41,7 @@ let userSchema = new mongoose.Schema({
   isVaidUser: {
     type: Boolean
   },
+  
   newPassword: {
     type: String
   }
@@ -75,9 +77,10 @@ userSchema.path('email').validate((val) => {
 //   return bcrypt.compareSync(pwd, this.password);
 // }
 
-// userSchema.method.generateJwt(() => {
-//   return jwt.sign({ _id: this._id },
-//   process.env.JWT_SECRET  
+// userSchema.method.generateJwt = function(){
+//   return jwt.sign(
+//     { _id: this._id }, 
+//     config.development.JWT_SECRET  
 //   )
-// });
+// };
 mongoose.model('User', userSchema);

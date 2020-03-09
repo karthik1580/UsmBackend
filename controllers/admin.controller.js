@@ -70,7 +70,7 @@ module.exports.userDeleteById = (req, res) => {
 
 
 module.exports.userById = (req, res) => {
-  console.log('res', res);
+  //console.log('res', res);
   // User.findByIdAndUpdate({id: userdata._id}, req.body, (err, user) => {
   //   console.log('update user', user);
   //   console.log('update err', err);
@@ -78,18 +78,18 @@ module.exports.userById = (req, res) => {
   // })  
 }
 
-function verifyToken(req, res, next){
-  if(!req.headers.authorization){
-      return res.status(401).send('Unautorized request');
-  }
-  let token = req.headers.authorization.split(' ')[1];
-  if(token === 'null'){
-    return res.status(401).send('Unautorized request');
-  }
-  let payload = jwt.verify(token, 'secretKey');
-  if(!payload){
-    return res.status(401).send('Unautorized request');
-  }
-  req.userId = payload.subject;
-  next();
-}
+// function verifyToken(req, res, next){
+//   if(!req.headers.authorization){
+//       return res.status(401).send('Unautorized request');
+//   }
+//   let token = req.headers.authorization.split(' ')[1];
+//   if(token === 'null'){
+//     return res.status(401).send('Unautorized request');
+//   }
+//   let payload = jwt.verify(token, 'secretKey');
+//   if(!payload){
+//     return res.status(401).send('Unautorized request');
+//   }
+//   req.userId = payload.subject;
+//   next();
+// }

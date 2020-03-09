@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = mongoose.model('User');
+const config = require('../config/config');
+
+const tokenList = {};
 
 module.exports.register = (req, res) => {
   let user = new User({
@@ -70,15 +73,42 @@ module.exports.login = (req, res) => {
         res.status(401).send('Invalid Password');
       } else {
           if(user.isVaidUser){
+            console.log('config', config);
             let payload = { subject: user._id };
-            let token = jwt.sign(payload, 'Jwt_SecretKey');
-            res.status(200).send({token});
+            let token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: config.tokenLife});
+            let refreshToken = jwt.sign(payload, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+            let response = {
+              "status": "Logged in",
+              "token": token,
+              "refreshToken": refreshToken
+            }
+            tokenList[refreshToken] = response;
+
+            res.status(200).send(response);
           }else{
             res.status(401).send('Administrator is not yet approve your request');
           }
       }
     }
   }) 
+}
+
+module.exports.getUserDetailsEmailId = (req, res) => {
+  User.findOne({email: req.params.id}, (err, filterData) => {     
+    if(!err) {
+      let responce = {
+        _id: filterData._id,
+        enterpriseId: filterData.enterpriseId,
+        firstName: filterData.firstName,
+        lastName: filterData.lastName,
+        role: filterData.role,
+        email: filterData.email
+      }
+      res.status(200).send(responce);
+    }else{
+      console.log("Data fetching error");
+    };    
+  });
 }
 
 module.exports.userslist = (req,res) => {
@@ -101,9 +131,9 @@ module.exports.usersUserById = (req,res) => {
     });
 }
 
-module.exports.authenticate = (req, res, next) => {
-  password.authenticate('local', this.passConfig(err, user, info)(req, res));
-}
+// module.exports.authenticate = (req, res, next) => {
+//   password.authenticate('local', this.passConfig(err, user, info)(req, res));
+// }
 
 module.exports.findByUserEmailId = (req, res) => {
   User.findOne({email: req.params.id}, (err, filterData) => {     
@@ -115,32 +145,53 @@ module.exports.findByUserEmailId = (req, res) => {
   });
 }
 
-module.exports.userPasswordUpdate = (filterData, res) => {
-  
+module.exports.userPasswordUpdate = (req, res) => {
   let updateUserObj = {
-      "_id": filterData._id,
-      "enterpriseId": filterData.enterpriseId,
-      "firstName": filterData.firstName,
-      "lastName": filterData.lastName,
-      "role": filterData.role,
-      "email": filterData.email,
-      "password": filterData.password,
-      "isVaidUser": filterData.isVaidUser,
-      "created_on": new Date()
+      password: req.body.password,
+      created_on: new Date()
   }
-  User.findByIdAndUpdate( filterData._id, 
+  User.findByIdAndUpdate( req.params.id, 
         { $set: updateUserObj },
         { new: true }, 
         function(err, updateUser) {          
           if(!err){
             res.status(200).send(updateUser);
-            console.log("password updating successfully");
+            console.log("Data updating successfully");
           }else{
             console.log("Data updating error");
           }
         }
     )
 }
+
+// module.exports.userPasswordUpdate = (filterData, res) => {
+
+//   console.log("Hi -------------------------------------------------------HI");
+//   console.log(filterData);
+//   let updateUserObj = {
+//       "_id": filterData._id,
+//       "enterpriseId": filterData.enterpriseId,
+//       "firstName": filterData.firstName,
+//       "lastName": filterData.lastName,
+//       "role": filterData.role,
+//       "email": filterData.email,
+//       "password": filterData.password,
+//       "isVaidUser": filterData.isVaidUser,
+//       "created_on": new Date()
+//   }
+//   User.findByIdAndUpdate( filterData._id, 
+//         { $set: updateUserObj },
+//         { new: true }, 
+//         function(err, updateUser) {          
+//           if(!err){
+//             res.status(200).send(updateUser);
+//             console.log("password updating successfully");
+//           }else{
+//             console.log("Data updating error");
+//           }
+//         }
+//     )
+// }
 
 
 

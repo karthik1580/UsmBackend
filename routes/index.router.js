@@ -9,8 +9,10 @@ const jwt = require('jsonwebtoken');
 //const User = mongoose.model('User');
 
 //User Access
+//router.post('/authenticate', userCtrl.authenticate);
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
+router.get('/login/:id', userCtrl.getUserDetailsEmailId);
 
 router.get('/user', userCtrl.userslist);
 router.get('/user/:id', userCtrl.usersUserById);
@@ -26,12 +28,14 @@ router.delete('/admin/:id', adminCtrl.userDeleteById);
 
 router.get('/pmo', pmoCtrl.pmo);
 
-router.post('/incident', incidentCtrl.createIncident);
+router.post('/incident', incidentCtrl.
+
+createIncident);
 router.get('/incident', incidentCtrl.getAllIncident);
 router.get('/incident/:id', incidentCtrl.getIncidentById);
 //router.put('/incident:id', incidentCtrl.updateIncidentById);
 
-router.put('/resetPwd/:id', userCtrl.userPasswordUpdate);
+//router.put('/resetPwd/:id', userCtrl.userPasswordUpdate);
 
 
 function verifyToken(req, res, next){

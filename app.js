@@ -10,7 +10,7 @@ const config = require('./config/config');
 
 let app = express();
 const jwt = require('jsonwebtoken');
-
+//app.use(require('./config/tokenChecker'));
 //const jwt = require('jsonwebtoken');
 
 // Bodyparser middlewhere
