@@ -18,19 +18,14 @@ module.exports.getAllIncident = (req, res) => {
   });
 }
 
-module.exports.getIncidentById = (req, res) => {
-  
-  const individualData = Incident.aggregate([ { $match : { userMapId: req.params.id} } ]);
-  console.log('individualData', individualData);
-  // for(doc of individualData) {
-  //   console.log('------TTTTTTTTTTT--------', doc);
-  // }
-  
-  // Incident.aggregate([ { $match : { userMapId: "5e661b70b114d4126c407b04"} } ]);
-  // res.status(200).send(data)
-  // // Incident.findById({_id: id}, (err, incident) => {
-  // //   return !err ? res.status(200).send(incident) : console.log("Data fetching error");
-  // // });
+module.exports.getIncidentById = (req, res) => {  
+  Incident.aggregate([ { $match : { userMapId: req.params.id} } ], (err, data) => {   
+    if(!err) {
+      res.status(200).send(data);
+    }else{
+      console.log("Data fetching error");
+    }
+  })
 }
 
 module.exports.findByEmailId = (req, res) => {
