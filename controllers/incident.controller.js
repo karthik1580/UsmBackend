@@ -20,9 +20,12 @@ module.exports.getAllIncident = (req, res) => {
 
 module.exports.getIncidentById = (req, res) => {  
   //let id = "56e6dd2eb4494ed008d595bd";
-  Incident.findById({_id: id}, (err, incident) => {
-    return !err ? res.status(200).send(incident) : console.log("Data fetching error");
-  });
+  console.log('getIncidentById------req------', req);
+  db.incidents.aggregate([ { $match : { userMapId: "5e661b70b114d4126c407b04"} } ]);
+  
+  // Incident.findById({_id: id}, (err, incident) => {
+  //   return !err ? res.status(200).send(incident) : console.log("Data fetching error");
+  // });
 }
 
 module.exports.findByEmailId = (req, res) => {
