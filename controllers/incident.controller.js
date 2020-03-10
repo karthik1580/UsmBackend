@@ -18,20 +18,24 @@ module.exports.getAllIncident = (req, res) => {
   });
 }
 
-module.exports.getIncidentById = (req, res) => {  
-  //let id = "56e6dd2eb4494ed008d595bd";
-  console.log('getIncidentById------req------', req);
-  db.incidents.aggregate([ { $match : { userMapId: "5e661b70b114d4126c407b04"} } ]);
+module.exports.getIncidentById = (req, res) => {
   
-  // Incident.findById({_id: id}, (err, incident) => {
-  //   return !err ? res.status(200).send(incident) : console.log("Data fetching error");
-  // });
+  const individualData = Incident.aggregate([ { $match : { userMapId: req.params.id} } ]);
+  console.log('individualData', individualData);
+  // for(doc of individualData) {
+  //   console.log('------TTTTTTTTTTT--------', doc);
+  // }
+  
+  // Incident.aggregate([ { $match : { userMapId: "5e661b70b114d4126c407b04"} } ]);
+  // res.status(200).send(data)
+  // // Incident.findById({_id: id}, (err, incident) => {
+  // //   return !err ? res.status(200).send(incident) : console.log("Data fetching error");
+  // // });
 }
 
 module.exports.findByEmailId = (req, res) => {
   User.findOne({email: req.body.referenceEmail}, (err, filterData) => {     
     if(!err) {
-      //consol.log('filterData', filterData);
       this.saveNewIncident(filterData, req.body, res);
     }else{
       console.log("Data fetching error");
@@ -40,8 +44,6 @@ module.exports.findByEmailId = (req, res) => {
 };
 
 module.exports.saveNewIncident = (filterObj, incidentData, res) => {
-  // console.log("---------filterData--------",filterObj);
-
   let incident = new Incident({
       userMapId: filterObj._id,
       email: filterObj.email,
