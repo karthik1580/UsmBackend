@@ -46,6 +46,7 @@ module.exports.saveNewIncident = (filterObj, incidentData, res) => {
       firstName: filterObj.firstName,
       lastName: filterObj.lastName,
       isVaidUser: filterObj.isVaidUser,
+      status: true,
       isOpen: true,
       isResolved: false,
       isClarification: false,

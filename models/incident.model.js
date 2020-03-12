@@ -28,6 +28,9 @@ let IncidentSchema = new mongoose.Schema({
   isVaidUser: {
     type: Boolean
   },
+  status: {
+    type: Boolean
+  },
   isOpen: {
     type: Boolean
   },
@@ -38,6 +41,9 @@ let IncidentSchema = new mongoose.Schema({
     type: Boolean
   },
   isClarification: {
+    type: Boolean
+  },
+  isCheckBox: {
     type: Boolean
   },
   created_on: {
