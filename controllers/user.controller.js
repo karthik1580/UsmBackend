@@ -14,7 +14,9 @@ module.exports.register = (req, res) => {
       email: req.body.email,
       password: req.body.password,
       isVaidUser: req.body.isVaidUser,
-      created_on: new Date()      
+      status: 'open',
+      created_on: new Date(),      
+      updateDate: new Date()      
   });
   user.save((err, regUser) => {
       if(!err){
@@ -131,10 +133,6 @@ module.exports.usersUserById = (req,res) => {
     });
 }
 
-// module.exports.authenticate = (req, res, next) => {
-//   password.authenticate('local', this.passConfig(err, user, info)(req, res));
-// }
-
 module.exports.findByUserEmailId = (req, res) => {
   User.findOne({email: req.params.id}, (err, filterData) => {     
     if(!err) {
@@ -163,35 +161,3 @@ module.exports.userPasswordUpdate = (req, res) => {
         }
     )
 }
-
-// module.exports.userPasswordUpdate = (filterData, res) => {
-
-//   console.log("Hi -------------------------------------------------------HI");
-//   console.log(filterData);
-//   let updateUserObj = {
-//       "_id": filterData._id,
-//       "enterpriseId": filterData.enterpriseId,
-//       "firstName": filterData.firstName,
-//       "lastName": filterData.lastName,
-//       "role": filterData.role,
-//       "email": filterData.email,
-//       "password": filterData.password,
-//       "isVaidUser": filterData.isVaidUser,
-//       "created_on": new Date()
-//   }
-//   User.findByIdAndUpdate( filterData._id, 
-//         { $set: updateUserObj },
-//         { new: true }, 
-//         function(err, updateUser) {          
-//           if(!err){
-//             res.status(200).send(updateUser);
-//             console.log("password updating successfully");
-//           }else{
-//             console.log("Data updating error");
-//           }
-//         }
-//     )
-// }
-
-
-

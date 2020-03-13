@@ -27,6 +27,7 @@ router.put('/admin/:id', adminCtrl.updateUserById);
 router.delete('/admin/:id', adminCtrl.userDeleteById);
 
 router.get('/pmo', pmoCtrl.pmo);
+router.get('/pmo/:id', pmoCtrl.pmoById);
 
 router.post('/incident', incidentCtrl.createIncident);
 router.get('/incident', incidentCtrl.getAllIncident);

@@ -38,10 +38,16 @@ let userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  update_on: {
+    type: Date,
+    default: Date.now
+  },
   isVaidUser: {
     type: Boolean
   },
-  
+  status: {
+    type: String
+  },    
   newPassword: {
     type: String
   }
