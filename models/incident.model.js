@@ -10,6 +10,9 @@ let IncidentSchema = new mongoose.Schema({
   email: {
     type: String
   },
+  role: {
+    type: String
+  },
   issueType: {
     type: String
   },
@@ -29,7 +32,10 @@ let IncidentSchema = new mongoose.Schema({
     type: Boolean
   },
   status: {
-    type: Boolean
+    type: String
+  },
+  workstation: {
+    type: String
   },
   isOpen: {
     type: Boolean
@@ -47,6 +53,10 @@ let IncidentSchema = new mongoose.Schema({
     type: Boolean
   },
   created_on: {
+    type: Date,
+    default: Date.now
+  },
+  updated_on: {
     type: Date,
     default: Date.now
   }

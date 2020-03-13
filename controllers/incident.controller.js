@@ -28,6 +28,16 @@ module.exports.getIncidentById = (req, res) => {
   })
 }
 
+// module.exports.getUserIncidentBy = (req, res) => {  
+//   Incident.aggregate([ { $match : { userMapId: req.params.id} } ], (err, data) => {   
+//     if(!err) {
+//       res.status(200).send(data);
+//     }else{
+//       console.log("Data fetching error");
+//     }
+//   })
+// }
+
 module.exports.findByEmailId = (req, res) => {
   User.findOne({email: req.body.referenceEmail}, (err, filterData) => {     
     if(!err) {
@@ -42,16 +52,18 @@ module.exports.saveNewIncident = (filterObj, incidentData, res) => {
   let incident = new Incident({
       userMapId: filterObj._id,
       email: filterObj.email,
+      role: filterObj.role,
       enterpriseId: filterObj.enterpriseId,
       firstName: filterObj.firstName,
       lastName: filterObj.lastName,
       isVaidUser: filterObj.isVaidUser,
-      status: true,
+      status: 'Open',
+      workstation: 'CDC2B.02.195',
       isOpen: true,
       isResolved: false,
       isClarification: false,
       created_on: new Date(),
-      
+      updated_on: new Date(),
       title: incidentData.incidentTitle,
       issueType: incidentData.incidentType,
       description: incidentData.incidentDescription,
