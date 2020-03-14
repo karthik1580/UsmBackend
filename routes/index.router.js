@@ -33,6 +33,7 @@ router.put('/pmo/:id', pmoCtrl.pmoUpdateUserById);
 router.post('/incident', incidentCtrl.createIncident);
 router.get('/incident', incidentCtrl.getAllIncident);
 router.get('/incident/:id', incidentCtrl.getIncidentById);
+//test
 //router.put('/incident:id', incidentCtrl.updateIncidentById);
 
 //router.put('/resetPwd/:id', userCtrl.userPasswordUpdate);

@@ -88,12 +88,6 @@ module.exports.saveNewIncident = (filterObj, incidentData, res) => {
 }
 
 
-
-
-
-
-
-
 /*
 
 module.exports.createIncident = (req, res) => {
