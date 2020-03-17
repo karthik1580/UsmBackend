@@ -75,10 +75,26 @@ module.exports.login = (req, res) => {
         res.status(401).send('Invalid Password');
       } else {
           if(user.isVaidUser){
-            console.log('config', config);
+            // console.log('JWT_SECRET-------------',  config.JWT_SECRET);
+            // console.log('config-------------',  config.tokenLife);
+            // console.log('refreshTokenLife-------------',  config.refreshTokenLife);
+            // let payload = { subject: user._id };
+            // let token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: config.tokenLife});
+            // let refreshToken = jwt.sign(payload, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife});
+
+
             let payload = { subject: user._id };
-            let token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: config.tokenLife});
-            let refreshToken = jwt.sign(payload, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
+            const private_key = 'pizza1234';
+            //token expires in 5 second;
+            const token = jwt.sign(payload, private_key, { expiresIn: '5s'});
+            console.log('token------------', token);
+
+            setTimeout(() => {
+              const data = jwt.verify(token, private_key);
+              console.log('verify---------',data);
+            }, 6000)
+
+            let refreshToken = jwt.sign(payload, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife});
             let response = {
               "status": "Logged in",
               "token": token,

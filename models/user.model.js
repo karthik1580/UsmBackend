@@ -90,3 +90,4 @@ userSchema.path('email').validate((val) => {
 //   )
 // };
 mongoose.model('User', userSchema);
+//test

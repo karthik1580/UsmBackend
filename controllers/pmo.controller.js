@@ -36,7 +36,6 @@ module.exports.pmoById = (req, res) => {
 // }
 
 module.exports.pmoUpdateUserById = (req, res) => {
-  console.log('req.params-------------', req.body);
   let updateUserObj = {
       status: req.body.status,
       workstation: req.body.workstation,
