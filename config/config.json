@@ -5,8 +5,8 @@
     "JWT_SECRET": "SECRET#123678",
     "secret": "some-secret-shit-goes-here",
     "refreshTokenSecret": "some-secret-refresh-token-shit",
-    "tokenLife": 5,
-    "refreshTokenLife": 86400
+    "tokenLife": 15,
+    "refreshTokenLife": 15
   },
   "production": {}
 }

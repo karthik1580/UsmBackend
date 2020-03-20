@@ -84,23 +84,35 @@ module.exports.login = (req, res) => {
 
 
             let payload = { subject: user._id };
-            const private_key = 'pizza1234';
-            //token expires in 5 second;
-            const token = jwt.sign(payload, private_key, { expiresIn: '5s'});
+            const private_key = 'SecureKey12345';
+            //token expires in 15 second;
+            let token = jwt.sign(payload, private_key, { expiresIn: '15s'});
             console.log('token------------', token);
 
             setTimeout(() => {
-              const data = jwt.verify(token, private_key);
-              console.log('verify---------',data);
-            }, 6000)
+              let data = jwt.verify(token, private_key);
 
-            let refreshToken = jwt.sign(payload, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife});
+              console.log('verify---------', data);
+            }, 16000)
+
+            let refreshToken = jwt.sign(payload, private_key, { expiresIn: '15s'});
+
             let response = {
               "status": "Logged in",
               "token": token,
               "refreshToken": refreshToken
             }
-            tokenList[refreshToken] = response;
+            tokenList[refreshToken] = response;            
+            
+            jwt.verify(token, 'private_key', function(err, decoded) {
+              if (err) {
+                  err = {
+                    name: 'TokenExpiredError',
+                    message: 'jwt expired',
+                    expiredAt: 1408621000
+                  }
+              }
+            });
 
             res.status(200).send(response);
           }else{
